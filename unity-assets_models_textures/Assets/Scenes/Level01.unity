@@ -133,6 +133,11 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 80
   m_CollisionDetection: 0
+--- !u!4 &50996550 stripped
+Transform:
+  m_PrefabParentObject: {fileID: 4997747635527118, guid: 424e95cad3e49b24ca869e35f9c4c85f,
+    type: 2}
+  m_PrefabInternal: {fileID: 127080668}
 --- !u!114 &50996551
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -365,7 +370,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d65f5c736f71f9488fd980d363d0f5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
+  player: {fileID: 50996550}
   offset: {x: 0, y: 2.5, z: -6.25}
   sensitivity: 100
   holdToRotate: 1
