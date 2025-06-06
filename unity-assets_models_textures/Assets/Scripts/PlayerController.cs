@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine;
 
 using UnityEngine;
 
@@ -17,9 +16,12 @@ public class PlayerController : MonoBehaviour
     private Vector3 moveInput;
     private Vector3 moveVelocity;
 
+    private Vector3 respawnPosition; // posición de respawn
+
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        respawnPosition = transform.position; // guarda la posición inicial como respawn
     }
 
     void Update()
@@ -35,6 +37,13 @@ public class PlayerController : MonoBehaviour
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
+        }
+
+        // Chequeo de caída: si se cae por debajo de cierto nivel, reaparece
+        if (transform.position.y < -10f)
+        {
+            transform.position = respawnPosition;
+            rb.velocity = Vector3.zero; // reinicia movimiento
         }
     }
 

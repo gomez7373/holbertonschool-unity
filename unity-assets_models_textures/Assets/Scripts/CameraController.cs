@@ -5,6 +5,10 @@ using UnityEngine;
 /// <summary>
 /// Camera that follows and rotates around the player using mouse movement.
 /// </summary>
+
+/// <summary>
+/// Camera that follows and rotates around the player using mouse movement.
+/// </summary>
 public class CameraController : MonoBehaviour
 {
     public Transform player; // The player to follow
@@ -29,7 +33,7 @@ public class CameraController : MonoBehaviour
     {
         if (player == null) return;
 
-        // Get mouse input
+        // Rotación con mouse
         bool canRotate = !holdToRotate || Input.GetMouseButton(1);
         if (canRotate)
         {
@@ -37,14 +41,18 @@ public class CameraController : MonoBehaviour
             yaw += mouseX * sensitivity;
         }
 
-        // Calculate camera rotation
+        // Aplica rotación y posición
         Quaternion rotation = Quaternion.Euler(0, yaw, 0);
-
-        // Apply rotation to offset and update camera position
         Vector3 rotatedOffset = rotation * offset;
         transform.position = player.position + rotatedOffset;
 
-        // Look at the player
-        transform.LookAt(player.position + Vector3.up * 1.5f); // Slight vertical offset for better framing
+        // Mira al jugador
+        transform.LookAt(player.position + Vector3.up * 1.5f);
+
+        // Si el jugador cayó, resetea rotación
+        if (player.position.y < -10f)
+        {
+            yaw = 0f; // opcional: resetea a rotación original
+        }
     }
 }
