@@ -900,10 +900,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &450787002 stripped
+GameObject:
+  m_PrefabParentObject: {fileID: 100000, guid: b3c0cf18acc6cbb408d8e235a029a88b, type: 3}
+  m_PrefabInternal: {fileID: 547070854}
 --- !u!4 &450787005 stripped
 Transform:
   m_PrefabParentObject: {fileID: 400000, guid: b3c0cf18acc6cbb408d8e235a029a88b, type: 3}
   m_PrefabInternal: {fileID: 547070854}
+--- !u!64 &450787006
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 450787002}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Convex: 0
+  m_CookingOptions: 14
+  m_SkinWidth: 0.01
+  m_Mesh: {fileID: 4300000, guid: b3c0cf18acc6cbb408d8e235a029a88b, type: 3}
 --- !u!1001 &462140937
 Prefab:
   m_ObjectHideFlags: 0
@@ -1158,7 +1176,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b3c0cf18acc6cbb408d8e235a029a88b, type: 3}
       propertyPath: m_LocalScale.x
-      value: 5.4412227
+      value: 4.284955
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: b3c0cf18acc6cbb408d8e235a029a88b, type: 3}
       propertyPath: m_LocalScale.y
