@@ -34,3 +34,8 @@ Thumbs.db
 .idea/
 *.sln.iml
 
+
+# Ignore large package archives
+**/*.tgz
+**/*.tar
+**/*.tar.gz
