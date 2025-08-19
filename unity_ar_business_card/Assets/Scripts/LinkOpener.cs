@@ -1,73 +1,115 @@
 using UnityEngine;
-using UnityEngine.UI;
-using TMPro;
+using System;   // Para Uri.EscapeDataString
 
 /// <summary>
-/// Abre enlaces (mailto y http/https) y da feedback visual/sonoro al pulsar.
+/// Uso este script para abrir mis enlaces (Medium, GitHub, LinkedIn) y
+/// para mostrar la ventana de redacción de correo al pulsar el botón de Email.
+/// También reproduzco un click corto como feedback.
 /// </summary>
 public class LinkOpener : MonoBehaviour
 {
-    [Header("Audio feedback")]
-    [Tooltip("Sonido corto de click al pulsar un botón")]
-    public AudioSource clickAudio;
+    [Header("Audio / Feedback")]
+    [Tooltip("Asigno aquí un AudioSource con un sonido corto de click")]
+    [SerializeField] private AudioSource clickAudio;
 
-    // === MÉTODOS ESPECÍFICOS ===
+    [Header("Mis enlaces")]
+    [SerializeField] private string mediumUrl = "https://medium.com/@sgc.holberton";
+    [SerializeField] private string githubUrl = "https://github.com/gomez7373";
+    [SerializeField] private string linkedinUrl = "https://www.linkedin.com/in/sheilagomezcubero?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app";
 
-    /// <summary>
-    /// Abre tu perfil de Medium.
-    /// </summary>
+    [Header("Email (Gmail Compose por defecto)")]
+    [Tooltip("Correo al que quiero que me escriban")]
+    [SerializeField] private string emailTo = "se.gomez.sheila@gmail.com";
+
+    [Tooltip("Asunto por defecto (puede ir vacío)")]
+    [SerializeField] private string defaultSubject = ""; // Ej: "Consulta"
+
+    [Tooltip("Cuerpo del mensaje por defecto (puede ir vacío)")]
+    [TextArea(3, 6)]
+    [SerializeField] private string defaultBody = "";    // Ej: "Hola Sheila..."
+
+    [Tooltip("Si lo activo, además de Gmail intento abrir 'mailto:' como plan B")]
+    [SerializeField] private bool alsoTryMailtoFallback = false;
+
+    // ==========================
+    // Botones específicos
+    // ==========================
+
+    /// <summary>Abro mi perfil de Medium.</summary>
     public void OpenMedium()
     {
-        Application.OpenURL("https://medium.com/@sgc.holberton");
-        PlayClick();
+        OpenUrlSafe(mediumUrl);
     }
 
-    /// <summary>
-    /// Abre tu perfil de GitHub.
-    /// </summary>
+    /// <summary>Abro mi perfil de GitHub.</summary>
     public void OpenGithub()
     {
-        Application.OpenURL("https://github.com/gomez7373");
-        PlayClick();
+        OpenUrlSafe(githubUrl);
     }
 
-    /// <summary>
-    /// Abre tu perfil de LinkedIn.
-    /// </summary>
+    /// <summary>Abro mi perfil de LinkedIn.</summary>
     public void OpenLinkedIn()
     {
-        Application.OpenURL("https://www.linkedin.com/in/sheilagomezcubero?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app");
-        PlayClick();
+        OpenUrlSafe(linkedinUrl);
     }
 
     /// <summary>
-    /// Abre el cliente de correo con tu dirección.
+    /// Abro directamente la ventana de redacción de Gmail con mi correo en "Para".
+    /// Si el usuario no tiene sesión en Gmail, el navegador le pedirá iniciar sesión.
+    /// Puedo activar un fallback con mailto si quiero cubrir clientes instalados.
     /// </summary>
     public void OpenEmail()
     {
-        Application.OpenURL("mailto:se.gomez.sheila@gmail.com");
+        string gmailUrl = BuildGmailCompose(emailTo, defaultSubject, defaultBody);
+        Application.OpenURL(gmailUrl);
+
+        if (alsoTryMailtoFallback)
+        {
+            string mailto = BuildMailto(emailTo, defaultSubject, defaultBody);
+            Application.OpenURL(mailto);
+        }
+
         PlayClick();
     }
 
-    // === MÉTODOS GENÉRICOS (opcionales si quieres reutilizar) ===
+    // ==========================
+    // Genéricos / Utilidades
+    // ==========================
 
-    public void OpenEmail(string email)
-    {
-        if (string.IsNullOrEmpty(email)) return;
-        Application.OpenURL($"mailto:{email}");
-        PlayClick();
-    }
-
+    /// <summary>Abro cualquier URL. Si no empieza con http, le antepongo https://</summary>
     public void OpenUrl(string url)
     {
-        if (string.IsNullOrEmpty(url)) return;
-        if (!url.StartsWith("http")) url = "https://" + url;
+        OpenUrlSafe(url);
+    }
+
+    /// <summary>Construyo la URL oficial de Gmail Compose con to/su/body codificados.</summary>
+    private string BuildGmailCompose(string to, string subject, string body)
+    {
+        string su = Uri.EscapeDataString(subject ?? "");
+        string bo = Uri.EscapeDataString(body ?? "");
+        return $"https://mail.google.com/mail/?view=cm&fs=1&to={to}&su={su}&body={bo}";
+    }
+
+    /// <summary>Construyo un mailto con asunto y cuerpo (para fallback opcional).</summary>
+    private string BuildMailto(string to, string subject, string body)
+    {
+        string su = Uri.EscapeDataString(subject ?? "");
+        string bo = Uri.EscapeDataString(body ?? "");
+        return $"mailto:{to}?subject={su}&body={bo}";
+    }
+
+    /// <summary>Abro una URL de forma segura (corrijo prefijo y doy feedback).</summary>
+    private void OpenUrlSafe(string url)
+    {
+        if (string.IsNullOrWhiteSpace(url)) return;
+        if (!url.StartsWith("http", StringComparison.OrdinalIgnoreCase))
+            url = "https://" + url;
+
         Application.OpenURL(url);
         PlayClick();
     }
 
-    // === REPRODUCIR AUDIO ===
-
+    /// <summary>Reproduzco el sonido de click si lo tengo asignado.</summary>
     private void PlayClick()
     {
         if (clickAudio != null) clickAudio.Play();
