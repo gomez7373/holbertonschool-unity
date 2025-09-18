@@ -1,4 +1,6 @@
-# === Unity default ignores ===
+# =============================
+# Unity default ignores
+# =============================
 
 [Ll]ibrary/
 [Tt]emp/
@@ -7,6 +9,7 @@
 [Bb]uilds/
 [Ll]ogs/
 [Mm]emoryCaptures/
+UserSettings/
 
 # Asset meta data should only be ignored when the corresponding asset is also ignored
 !/[Aa]ssets/**/*.meta
@@ -19,6 +22,8 @@
 
 # Visual Studio cache directory
 .vs/
+.vscode/
+.idea/
 
 # Gradle cache directory
 .gradle/
@@ -53,6 +58,10 @@ sysinfo.txt
 *.apk
 *.aab
 *.unitypackage
+*.exe
+*.app
+*.xcodeproj
+*.ipa
 
 # Crashlytics generated file
 crashlytics-build.properties
@@ -64,10 +73,23 @@ crashlytics-build.properties
 [Aa]ssets/[Ss]treamingAssets/aa.meta
 [Aa]ssets/[Ss]treamingAssets/aa/*
 
-# === Vuforia specific exceptions ===
+# =============================
+# Large packages / archives
+# =============================
 
-# Always keep Vuforia package (so the repo still works after git clone)
-!/Packages/com.ptc.vuforia.engine-*.tgz
+# Ignore ALL .tgz, .zip and other large archives by default
+*.tgz
+*.zip
+*.rar
+*.7z
+
+# =============================
+# Vuforia specific exceptions
+# =============================
+
+# Keep only the manifest + config, let Unity fetch the engine again if needed
+!/Packages/manifest.json
+!/Packages/packages-lock.json
 
 # Keep Vuforia configuration (contains License Key and DB settings)
 !/Assets/Resources/VuforiaConfiguration.asset
