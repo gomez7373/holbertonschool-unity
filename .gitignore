@@ -42,3 +42,16 @@ Thumbs.db
 
 # Ignorar paquetes locales de Vuforia (evitar >100MB en GitHub)
 **/Packages/com.ptc.vuforia.engine-*.tgz
+
+# Unity - ignora builds y binarios pesados
+Builds/
+*.apk
+*.zip
+*.exe
+
+# Unity - ignora cachés grandes
+Library/
+Logs/
+Temp/
+Obj/
+
