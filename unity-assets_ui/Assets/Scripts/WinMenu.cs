@@ -3,43 +3,26 @@ using UnityEngine.SceneManagement;
 
 public class WinMenu : MonoBehaviour
 {
-    public PlayerController playerController;
-    public WinTrigger winTrigger;
-
     public void MainMenu()
     {
-        Debug.Log("Returning to Main Menu...");
-        ResetWinState();
+        // Load the MainMenu scene
         SceneManager.LoadScene("MainMenu");
     }
 
     public void Next()
     {
-        Debug.Log("Loading Next Level...");
-        ResetWinState();
+        // Get current scene index
+        int currentIndex = SceneManager.GetActiveScene().buildIndex;
 
-        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
-
-        if (currentSceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
+        // If not the last scene, load the next one
+        if (currentIndex + 1 < SceneManager.sceneCountInBuildSettings)
         {
-            SceneManager.LoadScene(currentSceneIndex + 1);
+            SceneManager.LoadScene(currentIndex + 1);
         }
         else
         {
+            // If it is the last scene, return to MainMenu
             SceneManager.LoadScene("MainMenu");
-        }
-    }
-
-    private void ResetWinState()
-    {
-        if (winTrigger != null)
-        {
-            winTrigger.ResetWinState();
-        }
-
-        if (playerController != null)
-        {
-            playerController.ResetPlayer();
         }
     }
 }
