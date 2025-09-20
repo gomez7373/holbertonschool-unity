@@ -209,7 +209,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -403,7 +403,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -752,7 +752,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -847,8 +847,8 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 45
+    m_Font: {fileID: 12800000, guid: d784468bff55d83438279570d660b610, type: 3}
+    m_FontSize: 60
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -856,8 +856,8 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 0
-    m_HorizontalOverflow: 0
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: LEVEL SEECT
 --- !u!222 &1150047739
@@ -878,6 +878,11 @@ Prefab:
   m_Modification:
     m_TransformParent: {fileID: 656040256}
     m_Modifications:
+    - target: {fileID: 114647485313484408, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 224988556495474218, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
         type: 2}
       propertyPath: m_LocalPosition.x
@@ -973,6 +978,42 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2066464765}
+    - target: {fileID: 114034103411489748, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
+        type: 2}
+      propertyPath: m_FontData.m_AlignByGeometry
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114034103411489748, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 68d783cc84c0ea84faf4f7dbdbf4f297,
+        type: 3}
+    - target: {fileID: 114647485313484408, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647485313484408, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647485313484408, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2066464765}
+    - target: {fileID: 114647485313484408, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Exit
+      objectReference: {fileID: 0}
+    - target: {fileID: 114647485313484408, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b, type: 2}
   m_IsPrefabParent: 0
@@ -1079,8 +1120,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1770193798}
   - component: {fileID: 1770193797}
-  - component: {fileID: 1770193796}
-  - component: {fileID: 1770193795}
   - component: {fileID: 1770193800}
   - component: {fileID: 1770193799}
   m_Layer: 5
@@ -1090,28 +1129,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &1770193795
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1770193794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1770193796
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1770193794}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!223 &1770193797
 Canvas:
   m_ObjectHideFlags: 0
@@ -1184,7 +1201,7 @@ MonoBehaviour:
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1280, y: 800}
   m_ScreenMatchMode: 0
-  m_MatchWidthOrHeight: 0
+  m_MatchWidthOrHeight: 1
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
@@ -1320,6 +1337,40 @@ Prefab:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2066464765}
+    - target: {fileID: 114131322817129448, guid: 424c20bf19d532b408974e838d6503ad,
+        type: 2}
+      propertyPath: m_Transition
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 114131322817129448, guid: 424c20bf19d532b408974e838d6503ad,
+        type: 2}
+      propertyPath: m_SpriteState.m_HighlightedSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 184181de7b646f9499d55370e2ac8c24,
+        type: 3}
+    - target: {fileID: 114131322817129448, guid: 424c20bf19d532b408974e838d6503ad,
+        type: 2}
+      propertyPath: m_SpriteState.m_PressedSprite
+      value: 
+      objectReference: {fileID: 21300002, guid: 184181de7b646f9499d55370e2ac8c24,
+        type: 3}
+    - target: {fileID: 114131322817129448, guid: 424c20bf19d532b408974e838d6503ad,
+        type: 2}
+      propertyPath: m_SpriteState.m_DisabledSprite
+      value: 
+      objectReference: {fileID: 21300004, guid: 184181de7b646f9499d55370e2ac8c24,
+        type: 3}
+    - target: {fileID: 114047231507606062, guid: 424c20bf19d532b408974e838d6503ad,
+        type: 2}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 12800000, guid: 68d783cc84c0ea84faf4f7dbdbf4f297,
+        type: 3}
+    - target: {fileID: 114047231507606062, guid: 424c20bf19d532b408974e838d6503ad,
+        type: 2}
+      propertyPath: m_FontData.m_VerticalOverflow
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 424c20bf19d532b408974e838d6503ad, type: 2}
   m_IsPrefabParent: 0
