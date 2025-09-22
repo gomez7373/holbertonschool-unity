@@ -2604,17 +2604,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: ApplyButton
       objectReference: {fileID: 0}
-    - target: {fileID: 7610175163803005372, guid: 6eeef1f18ad5c1849b46597c83588a84,
-        type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7610175163803005372, guid: 6eeef1f18ad5c1849b46597c83588a84,
-        type: 3}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 633335730, guid: 15d97d723929a21478daef577d1509f7,
-        type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
