@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1466959509627986}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -110,7 +110,8 @@ MonoBehaviour:
       type: 3}
     m_PressedSprite: {fileID: -296007544, guid: 15d97d723929a21478daef577d1509f7,
       type: 3}
-    m_SelectedSprite: {fileID: 0}
+    m_SelectedSprite: {fileID: -296007544, guid: 15d97d723929a21478daef577d1509f7,
+      type: 3}
     m_DisabledSprite: {fileID: 21300004, guid: 184181de7b646f9499d55370e2ac8c24, type: 3}
   m_AnimationTriggers:
     m_NormalTrigger: Normal
@@ -123,9 +124,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 11500000, guid: 648af25f92144a5439ba9063bef0f140, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: MainMenu, Assembly-CSharp
-        m_MethodName: 
+        m_MethodName: Exit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

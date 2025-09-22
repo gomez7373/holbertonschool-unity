@@ -1027,20 +1027,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 114131322817129448, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
         type: 3}
-      propertyPath: m_SpriteState.m_SelectedSprite
-      value: 
-      objectReference: {fileID: -296007544, guid: 15d97d723929a21478daef577d1509f7,
-        type: 3}
-    - target: {fileID: 114131322817129448, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
-        type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 2066464765}
-    - target: {fileID: 114131322817129448, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
-        type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Exit
-      objectReference: {fileID: 0}
     - target: {fileID: 224914883217771092, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
         type: 3}
       propertyPath: m_Pivot.x
@@ -1139,11 +1128,6 @@ PrefabInstance:
     - target: {fileID: 224914883217771092, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1971768125866679067, guid: 8b8a54bbaf6ea08468aa1efbf8a9e80b,
-        type: 3}
-      propertyPath: m_hasFontAssetChanged
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
