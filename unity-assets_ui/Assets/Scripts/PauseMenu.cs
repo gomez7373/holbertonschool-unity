@@ -6,6 +6,13 @@ public class PauseMenu : MonoBehaviour
     public static bool isPaused = false;
     public GameObject pauseCanvas;
 
+    void Start()
+    {
+        // Ensure pause menu is hidden at start
+        if (pauseCanvas != null)
+            pauseCanvas.SetActive(false);
+    }
+
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
@@ -19,36 +26,45 @@ public class PauseMenu : MonoBehaviour
 
     public void Pause()
     {
+        if (pauseCanvas == null) return;
+
         isPaused = true;
         pauseCanvas.SetActive(true);
-        Time.timeScale = 0f; // Freeze game time
+        Time.timeScale = 0f;
     }
 
     public void Resume()
     {
+        if (pauseCanvas == null) return;
+
         isPaused = false;
         pauseCanvas.SetActive(false);
-        Time.timeScale = 1f; // Unfreeze game time
+        ResumeTime();
     }
 
     public void Restart()
     {
         isPaused = false;
-        Time.timeScale = 1f;
+        ResumeTime();
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()
     {
         isPaused = false;
-        Time.timeScale = 1f;
+        ResumeTime();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void Options()
     {
         isPaused = false;
-        Time.timeScale = 1f;
+        ResumeTime();
         SceneManager.LoadScene("Options");
+    }
+
+    private void ResumeTime()
+    {
+        Time.timeScale = 1f;
     }
 }
