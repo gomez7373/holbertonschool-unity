@@ -1,37 +1,31 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
 
 /// <summary>
-/// Stops timer and updates timer text when Player reaches WinFlag.
+/// Activates WinCanvas and stops the timer when player reaches WinFlag.
 /// </summary>
 public class WinTrigger : MonoBehaviour
 {
+    public GameObject winCanvas; // Drag WinCanvas here in Inspector
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("🏁 Player reached WinFlag!");
+            Debug.Log("Player reached WinFlag!");
 
-            Timer timer = other.GetComponent<Timer>();
+            // Show WinCanvas
+            if (winCanvas != null)
+                winCanvas.SetActive(true);
+
+            // Stop timer and update FinalTime text
+            Timer timer = FindObjectOfType<Timer>();
             if (timer != null)
-            {
-                timer.enabled = false;
-            }
+                timer.Win();
 
-            // Get the TimerText from the Timer script
-            Text timerText = timer.timerText;
-            if (timerText != null)
-            {
-                timerText.fontSize = 60; // Make it bigger
-                timerText.color = Color.green; // Make it green
-            }
-
-            // Optional: disable movement
+            // Disable player movement (optional, cleaner UX)
             PlayerController controller = other.GetComponent<PlayerController>();
             if (controller != null)
-            {
                 controller.enabled = false;
-            }
         }
     }
 }

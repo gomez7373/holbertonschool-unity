@@ -6,7 +6,9 @@ using UnityEngine.UI;
 /// </summary>
 public class Timer : MonoBehaviour
 {
-    public Text timerText;
+    [Header("UI References")]
+    public Text timerText; // In-game timer text (top of screen)
+
     private float elapsedTime = 0f;
     private bool isRunning = false;
 
@@ -15,20 +17,72 @@ public class Timer : MonoBehaviour
         if (!isRunning) return;
 
         elapsedTime += Time.deltaTime;
-
-        int minutes = Mathf.FloorToInt(elapsedTime / 60f);
-        float seconds = elapsedTime % 60f;
-
-        timerText.text = string.Format("{0:0}:{1:00.00}", minutes, seconds);
+        UpdateTimerUI(timerText, elapsedTime);
     }
 
+    /// <summary>
+    /// Starts the timer.
+    /// </summary>
     public void StartTimer()
     {
         isRunning = true;
+        elapsedTime = 0f;
     }
 
+    /// <summary>
+    /// Stops the timer and updates the WinCanvas UI.
+    /// </summary>
+    public void Win()
+    {
+        isRunning = false;
+
+        // Format final time
+        string finalTime = FormatTime(elapsedTime);
+
+        // 1. Change in-game timer to green (like you wanted)
+        if (timerText != null)
+        {
+            timerText.color = Color.green;
+        }
+
+        // 2. Find "FinalTime" text inside WinCanvas and update it
+        GameObject finalTimeObj = GameObject.Find("FinalTime");
+        if (finalTimeObj != null)
+        {
+            Text finalTimeText = finalTimeObj.GetComponent<Text>();
+            if (finalTimeText != null)
+            {
+                finalTimeText.text = finalTime;
+                finalTimeText.color = Color.white; // matches Holberton’s example
+                finalTimeText.fontSize = 100;      // required by task
+            }
+        }
+    }
+
+    /// <summary>
+    /// Returns elapsed time in seconds.
+    /// </summary>
     public float GetElapsedTime()
     {
         return elapsedTime;
+    }
+
+    /// <summary>
+    /// Helper: update a Text component with formatted time.
+    /// </summary>
+    private void UpdateTimerUI(Text textComponent, float time)
+    {
+        if (textComponent == null) return;
+        textComponent.text = FormatTime(time);
+    }
+
+    /// <summary>
+    /// Helper: format time into mm:ss.ff
+    /// </summary>
+    private string FormatTime(float time)
+    {
+        int minutes = Mathf.FloorToInt(time / 60f);
+        float seconds = time % 60f;
+        return string.Format("{0:0}:{1:00.00}", minutes, seconds);
     }
 }
