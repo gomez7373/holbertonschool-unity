@@ -1391,7 +1391,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f59fcd0adecf02f468e1787b2c84506e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winCanvas: {fileID: 0}
+  winCanvas: {fileID: 1014466216}
 --- !u!1001 &547070854
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2194,6 +2194,10 @@ PrefabInstance:
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 100000, guid: 693a3e99d95c7364ebfadd49748ae3d6,
+        type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 943866748}
     - targetCorrespondingSourceObject: {fileID: 100004, guid: 693a3e99d95c7364ebfadd49748ae3d6,
         type: 3}
       insertIndex: -1
@@ -2233,6 +2237,25 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 4300002, guid: 693a3e99d95c7364ebfadd49748ae3d6, type: 3}
+--- !u!1 &943866747 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 693a3e99d95c7364ebfadd49748ae3d6,
+    type: 3}
+  m_PrefabInstance: {fileID: 943866743}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &943866748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 943866747}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f59fcd0adecf02f468e1787b2c84506e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winCanvas: {fileID: 1014466216}
 --- !u!1001 &952245005
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2567,13 +2590,19 @@ PrefabInstance:
     - target: {fileID: 9017528910975404150, guid: 20688fa1f2dc2e143a3d394c85e057e1,
         type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 20688fa1f2dc2e143a3d394c85e057e1, type: 3}
+--- !u!1 &1014466216 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9017528910975404150, guid: 20688fa1f2dc2e143a3d394c85e057e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1014466215}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1044912469
 GameObject:
   m_ObjectHideFlags: 0
