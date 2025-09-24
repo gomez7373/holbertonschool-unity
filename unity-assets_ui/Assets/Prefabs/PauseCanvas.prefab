@@ -773,7 +773,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1888831625966523589
 RectTransform:
   m_ObjectHideFlags: 0
@@ -874,7 +874,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a21b74fd6109eb4f995a8678bb0ee96, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pauseCanvas: {fileID: 0}
+  pauseCanvas: {fileID: 5867243499631439721}
 --- !u!1 &6033116982958639716
 GameObject:
   m_ObjectHideFlags: 0
@@ -1260,7 +1260,7 @@ PrefabInstance:
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}
@@ -1270,17 +1270,17 @@ PrefabInstance:
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0.5
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}
       propertyPath: m_SizeDelta.x
-      value: 200
+      value: 143.3
       objectReference: {fileID: 0}
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}
       propertyPath: m_SizeDelta.y
-      value: 70
+      value: 50.157
       objectReference: {fileID: 0}
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}
@@ -1335,12 +1335,12 @@ PrefabInstance:
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 15
+      value: -8
       objectReference: {fileID: 0}
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -149
+      value: 229.1
       objectReference: {fileID: 0}
     - target: {fileID: 224914883217771092, guid: 424c20bf19d532b408974e838d6503ad,
         type: 3}

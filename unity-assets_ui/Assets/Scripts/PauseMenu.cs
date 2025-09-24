@@ -3,24 +3,26 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    public static bool isPaused = false;
-    public GameObject pauseCanvas;
+    [SerializeField] private GameObject pauseCanvas; // drag in Inspector
 
     void Start()
     {
-        // Ensure pause menu is hidden at start
+        // Ensure canvas starts hidden
         if (pauseCanvas != null)
             pauseCanvas.SetActive(false);
+
+        // Sync flag with actual canvas state
+        isPaused = false;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            if (isPaused)
-                Resume();
-            else
-                Pause();
+            Debug.Log("ESC pressed | isPaused = " + isPaused);
+
+            if (IsPaused()) Resume();
+            else Pause();
         }
     }
 
@@ -28,7 +30,6 @@ public class PauseMenu : MonoBehaviour
     {
         if (pauseCanvas == null) return;
 
-        isPaused = true;
         pauseCanvas.SetActive(true);
         Time.timeScale = 0f;
     }
@@ -37,34 +38,34 @@ public class PauseMenu : MonoBehaviour
     {
         if (pauseCanvas == null) return;
 
-        isPaused = false;
         pauseCanvas.SetActive(false);
-        ResumeTime();
+        Time.timeScale = 1f;
     }
 
     public void Restart()
     {
-        isPaused = false;
-        ResumeTime();
+        Resume(); // unpause first
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()
     {
-        isPaused = false;
-        ResumeTime();
+        Resume();
         SceneManager.LoadScene("MainMenu");
     }
 
     public void Options()
     {
-        isPaused = false;
-        ResumeTime();
+        Resume();
         SceneManager.LoadScene("Options");
     }
 
-    private void ResumeTime()
+    // Helper: check directly if menu is active
+    private bool IsPaused()
     {
-        Time.timeScale = 1f;
+        return pauseCanvas != null && pauseCanvas.activeSelf;
     }
+
+    // Backwards compatibility if something else checks it
+    public static bool isPaused;
 }
