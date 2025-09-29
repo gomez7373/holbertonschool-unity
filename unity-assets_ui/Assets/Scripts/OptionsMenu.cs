@@ -4,6 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class OptionsMenu : MonoBehaviour
 {
+    [Header("UI Elements")]
     public Toggle InvertYToggle;
     public Slider BGMSlider;
     public Slider SFXSlider;
@@ -12,70 +13,40 @@ public class OptionsMenu : MonoBehaviour
 
     void Start()
     {
-        // Load saved values safely
-        if (InvertYToggle != null)
-        {
-            InvertYToggle.isOn = PlayerPrefs.GetInt("InvertY", 0) == 1;
-        }
+        // Load saved values
+        InvertYToggle.isOn = PlayerPrefs.GetInt("InvertY", 0) == 1;
+        BGMSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
+        SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
 
-        if (BGMSlider != null)
-        {
-            BGMSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
-        }
-
-        if (SFXSlider != null)
-        {
-            SFXSlider.value = PlayerPrefs.GetFloat("SFXVolume", 1f);
-        }
-
-        // Find camera
+        // Find CameraController
         cameraController = FindObjectOfType<CameraController>();
-        if (cameraController != null && InvertYToggle != null)
-        {
+        if (cameraController != null)
             cameraController.SetInvertY(InvertYToggle.isOn);
-        }
 
-        // Apply BGM volume globally if available
-        if (BGMSlider != null)
-        {
-            AudioListener.volume = BGMSlider.value;
-        }
+        // Apply BGM volume globally
+        AudioListener.volume = BGMSlider.value;
     }
 
+    // Save settings and return
     public void Apply()
     {
-        // Save settings
-        if (InvertYToggle != null)
-        {
-            PlayerPrefs.SetInt("InvertY", InvertYToggle.isOn ? 1 : 0);
-        }
-
-        if (BGMSlider != null)
-        {
-            PlayerPrefs.SetFloat("BGMVolume", BGMSlider.value);
-            AudioListener.volume = BGMSlider.value;
-        }
-
-        if (SFXSlider != null)
-        {
-            PlayerPrefs.SetFloat("SFXVolume", SFXSlider.value);
-        }
-
+        PlayerPrefs.SetInt("InvertY", InvertYToggle.isOn ? 1 : 0);
+        PlayerPrefs.SetFloat("BGMVolume", BGMSlider.value);
+        PlayerPrefs.SetFloat("SFXVolume", SFXSlider.value);
         PlayerPrefs.Save();
 
-        // Update camera inversion
-        if (cameraController != null && InvertYToggle != null)
-        {
+        if (cameraController != null)
             cameraController.SetInvertY(InvertYToggle.isOn);
-        }
 
-        // Go back to previous scene
-        SceneManager.LoadScene(PlayerPrefs.GetString("PreviousScene", "MainMenu"));
+        // Load previous scene (default = MainMenu)
+        string previousScene = PlayerPrefs.GetString("PreviousScene", "MainMenu");
+        SceneManager.LoadScene(previousScene);
     }
 
+    // Return without saving
     public void Back()
     {
-        // Return without saving
-        SceneManager.LoadScene(PlayerPrefs.GetString("PreviousScene", "MainMenu"));
+        string previousScene = PlayerPrefs.GetString("PreviousScene", "MainMenu");
+        SceneManager.LoadScene(previousScene);
     }
 }

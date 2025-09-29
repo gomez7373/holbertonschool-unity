@@ -2267,8 +2267,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   InvertYToggle: {fileID: 47607310}
-  BGMSlider: {fileID: 0}
-  SFXSlider: {fileID: 0}
+  BGMSlider: {fileID: 942220162}
+  SFXSlider: {fileID: 1943517024}
 --- !u!4 &1876582346
 Transform:
   m_ObjectHideFlags: 0

@@ -6,23 +6,14 @@ public class MainMenu : MonoBehaviour
     // Load level scenes
     public void LevelSelect(int level)
     {
-        switch (level)
-        {
-            case 1:
-                SceneManager.LoadScene("Level01");
-                break;
-            case 2:
-                SceneManager.LoadScene("Level02");
-                break;
-            case 3:
-                SceneManager.LoadScene("Level03");
-                break;
-        }
+        string sceneName = $"Level0{level}";
+        SceneManager.LoadScene(sceneName);
     }
 
-    // Load Options scene
+    // Load Options scene and save current scene as "PreviousScene"
     public void Options()
     {
+        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("Options");
     }
 
