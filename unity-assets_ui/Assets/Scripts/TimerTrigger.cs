@@ -9,12 +9,13 @@ public class TimerTrigger : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Timer timer = other.GetComponent<Timer>();
+            // Find Timer in the scene (not only inside Player)
+            Timer timer = FindObjectOfType<Timer>();
             if (timer != null)
             {
-                timer.enabled = true;   // Enable the script
+                timer.enabled = true;   // Ensure it is active
                 timer.StartTimer();     // Start counting
-                Destroy(gameObject);    // Remove trigger
+                Destroy(gameObject);    // Remove trigger so it runs once
             }
         }
     }

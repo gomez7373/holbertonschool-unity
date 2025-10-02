@@ -7,7 +7,8 @@ using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
     [Header("UI References")]
-    public Text timerText; // In-game timer text (top of screen)
+    [SerializeField] private Text timerText;     // In-game timer text (top of screen)
+    [SerializeField] private Text finalTimeText; // WinCanvas "FinalTime" text
 
     private float elapsedTime = 0f;
     private bool isRunning = false;
@@ -39,23 +40,18 @@ public class Timer : MonoBehaviour
         // Format final time
         string finalTime = FormatTime(elapsedTime);
 
-        // 1. Change in-game timer to green (like you wanted)
+        // Change in-game timer to green
         if (timerText != null)
         {
             timerText.color = Color.green;
         }
 
-        // 2. Find "FinalTime" text inside WinCanvas and update it
-        GameObject finalTimeObj = GameObject.Find("FinalTime");
-        if (finalTimeObj != null)
+        // Update WinCanvas "FinalTime" text
+        if (finalTimeText != null)
         {
-            Text finalTimeText = finalTimeObj.GetComponent<Text>();
-            if (finalTimeText != null)
-            {
-                finalTimeText.text = finalTime;
-                finalTimeText.color = Color.white; // matches Holberton’s example
-                finalTimeText.fontSize = 100;      // required by task
-            }
+            finalTimeText.text = finalTime;
+            finalTimeText.color = Color.white;
+            finalTimeText.fontSize = 100;
         }
     }
 

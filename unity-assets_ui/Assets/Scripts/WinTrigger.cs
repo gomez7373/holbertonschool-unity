@@ -20,9 +20,12 @@ public class WinTrigger : MonoBehaviour
             // Stop timer and update FinalTime text
             Timer timer = FindObjectOfType<Timer>();
             if (timer != null)
+            {
+                Debug.Log("Timer found, stopping...");
                 timer.Win();
+            }
 
-            // Disable player movement (optional, cleaner UX)
+            // Disable player movement
             PlayerController controller = other.GetComponent<PlayerController>();
             if (controller != null)
                 controller.enabled = false;

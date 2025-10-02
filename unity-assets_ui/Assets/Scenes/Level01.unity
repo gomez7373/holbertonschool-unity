@@ -2503,11 +2503,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: WinCanvas
       objectReference: {fileID: 0}
-    - target: {fileID: 9017528910975404150, guid: 20688fa1f2dc2e143a3d394c85e057e1,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2698,6 +2693,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timerText: {fileID: 1206992945}
+  finalTimeText: {fileID: 0}
 --- !u!222 &1206992947
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -3064,6 +3060,52 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1433703793}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1609645923
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1609645925}
+  - component: {fileID: 1609645924}
+  m_Layer: 0
+  m_Name: Timer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1609645924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609645923}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 73c8836e38b4019479b24f15f4c015c7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  timerText: {fileID: 1206992945}
+  finalTimeText: {fileID: 1765445308}
+--- !u!4 &1609645925
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1609645923}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 206.9575, y: 324.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1616008187 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 75a8f5836c79b7c4fb23324c661511dd,
@@ -3258,6 +3300,18 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
+--- !u!114 &1765445308 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6820718085014848205, guid: 20688fa1f2dc2e143a3d394c85e057e1,
+    type: 3}
+  m_PrefabInstance: {fileID: 1014466215}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1769320323 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: 00b54372a5e465343a03f4f15c2f59ba,
@@ -4295,3 +4349,4 @@ SceneRoots:
   - {fileID: 7805046508622913905}
   - {fileID: 3808408910507619274}
   - {fileID: 1014466215}
+  - {fileID: 1609645925}
