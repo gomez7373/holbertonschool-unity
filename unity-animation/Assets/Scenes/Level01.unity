@@ -4101,7 +4101,7 @@ PrefabInstance:
     - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0.008726464
       objectReference: {fileID: 0}
     - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
@@ -4111,12 +4111,12 @@ PrefabInstance:
     - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.9999619
       objectReference: {fileID: 0}
     - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
@@ -4126,7 +4126,7 @@ PrefabInstance:
     - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 181
       objectReference: {fileID: 0}
     - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
