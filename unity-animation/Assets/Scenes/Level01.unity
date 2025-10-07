@@ -4078,60 +4078,60 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 5569644815444293852, guid: 87a70d589a535cb46bcec1575889c47d,
+        type: 3}
+      propertyPath: m_Name
+      value: CutsceneCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalPosition.y
       value: 2
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalPosition.z
       value: 5
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalRotation.w
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalRotation.y
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
       value: 180
       objectReference: {fileID: 0}
-    - target: {fileID: 1838276465121750145, guid: 87a70d589a535cb46bcec1575889c47d,
+    - target: {fileID: 7027616810291684300, guid: 87a70d589a535cb46bcec1575889c47d,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6871239199686722439, guid: 87a70d589a535cb46bcec1575889c47d,
-        type: 3}
-      propertyPath: m_Name
-      value: CutsceneCamera
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
