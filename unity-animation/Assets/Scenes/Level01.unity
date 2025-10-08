@@ -3118,6 +3118,12 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 792539328}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1633601311 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1099213240487194, guid: 424e95cad3e49b24ca869e35f9c4c85f,
+    type: 3}
+  m_PrefabInstance: {fileID: 127080668}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1670709613
 GameObject:
   m_ObjectHideFlags: 0
@@ -4249,6 +4255,7 @@ GameObject:
   - component: {fileID: 8882582559835765803}
   - component: {fileID: 6263525311674004486}
   - component: {fileID: 4292254190964985291}
+  - component: {fileID: 8882582559835765804}
   m_Layer: 0
   m_Name: CutsceneCamera
   m_TagString: Untagged
@@ -4425,6 +4432,22 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!114 &8882582559835765804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7781850270615803503}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: af7e0429d61886443aaa7a4a34fa1813, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 333827153}
+  cutsceneCamera: {fileID: 8882582559835765803}
+  player: {fileID: 1633601311}
+  timerCanvas: {fileID: 120728168}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
