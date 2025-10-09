@@ -553,6 +553,55 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 225106170}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &239988904
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 239988906}
+  - component: {fileID: 239988905}
+  m_Layer: 0
+  m_Name: CutsceneManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &239988905
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239988904}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ae1a2744826039d44a6accc254862699, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 333827153}
+  cutsceneCamera: {fileID: 8882582559835765803}
+  player: {fileID: 1633601311}
+  timerCanvas: {fileID: 120728168}
+  cameraController: {fileID: 8882582559835765804}
+--- !u!4 &239988906
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 239988904}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.0630139, y: -0.025419625, z: 0.0016055021, w: 0.9976876}
+  m_LocalPosition: {x: 0.26, y: 3.38, z: -9.04}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &287354553
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -880,7 +929,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!81 &333827151
 AudioListener:
   m_ObjectHideFlags: 0
@@ -4441,18 +4490,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 7781850270615803503}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: af7e0429d61886443aaa7a4a34fa1813, type: 3}
+  m_Script: {fileID: 11500000, guid: 4b623bbbc5b49ac40a84b77820a6f3e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  mainCamera: {fileID: 333827153}
-  cutsceneCamera: {fileID: 8882582559835765803}
-  player: {fileID: 1633601311}
-  timerCanvas: {fileID: 120728168}
+  animator: {fileID: 4292254190964985291}
+  speed: 0.5
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 5130419821817482623}
+  - {fileID: 239988906}
   - {fileID: 333827154}
   - {fileID: 127080668}
   - {fileID: 990027378}
