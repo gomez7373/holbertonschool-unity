@@ -3,41 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// Controls player movement and jumping.
+/// Controls player movement and jumping (Rigidbody-based).
+/// Updated for Task 4: Player turns with A/D instead of strafing.
 /// </summary>
 public class PlayerController : MonoBehaviour
 {
-    public float moveSpeed = 5f;
-    public float jumpForce = 7f;
+    [Header("Movement Settings")]
+    public float moveSpeed = 5f;      // Speed for W/S movement
+    public float rotationSpeed = 120f; // Speed for turning (A/D)
+    public float jumpForce = 7f;      // Jump force
 
     private Rigidbody rb;
     private bool isGrounded = true;
-    private Vector3 moveInput;
-    private Vector3 moveVelocity;
-    private Vector3 respawnPosition; // Respawn position
+    private Vector3 respawnPosition; // Starting point for respawn
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
-        respawnPosition = transform.position; // Save initial position for respawn
+        respawnPosition = transform.position;
     }
 
     void Update()
     {
-        // Player movement input
-        float moveX = Input.GetAxis("Horizontal");
-        float moveZ = Input.GetAxis("Vertical");
-        moveInput = new Vector3(moveX, 0f, moveZ).normalized;
-        moveVelocity = moveInput * moveSpeed;
+        // --- ROTATION (A/D) ---
+        float turn = Input.GetAxis("Horizontal");
+        transform.Rotate(Vector3.up * turn * rotationSpeed * Time.deltaTime);
 
-        // Jumping input
+        // --- MOVEMENT (W/S) ---
+        float moveZ = Input.GetAxis("Vertical");
+        Vector3 moveDir = transform.forward * moveZ * moveSpeed;
+        Vector3 newPos = rb.position + moveDir * Time.deltaTime;
+        rb.MovePosition(newPos);
+
+        // --- JUMP ---
         if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
         {
             rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
             isGrounded = false;
         }
 
-        // Fall detection & respawn
+        // --- FALL & RESPAWN ---
         if (transform.position.y < -10f)
         {
             transform.position = respawnPosition;
@@ -45,15 +50,9 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void FixedUpdate()
-    {
-        // Apply movement in physics update
-        rb.MovePosition(rb.position + moveVelocity * Time.fixedDeltaTime);
-    }
-
     void OnCollisionEnter(Collision other)
     {
-        // Ground detection: only set grounded if colliding from above
+        // Detect landing (only if touching from above)
         foreach (ContactPoint contact in other.contacts)
         {
             if (contact.normal.y > 0.5f)

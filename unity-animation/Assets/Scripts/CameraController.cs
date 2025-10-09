@@ -2,6 +2,8 @@ using UnityEngine;
 
 /// <summary>
 /// Handles third-person camera movement and Y-axis inversion.
+/// Follows player position, but does NOT rotate with player rotation.
+/// Camera rotates only with mouse movement.
 /// </summary>
 public class CameraController : MonoBehaviour
 {
@@ -10,9 +12,9 @@ public class CameraController : MonoBehaviour
 
     [Header("Camera Settings")]
     public Vector3 offset = new Vector3(0, 3, -6); // Default offset (behind player)
-    public float rotationSpeed = 5f;               // Rotation sensitivity
-    public float smoothSpeed = 0.125f;             // Smoothing factor
-    public bool isInverted = false;                // Invert Y-axis
+    public float rotationSpeed = 5f;               // Mouse sensitivity
+    public float smoothSpeed = 0.125f;             // Follow smoothness
+    public bool isInverted = false;                // Invert Y-axis toggle
 
     private float yaw;   // Horizontal rotation
     private float pitch; // Vertical rotation
@@ -25,47 +27,52 @@ public class CameraController : MonoBehaviour
             return;
         }
 
-        // Initialize yaw based on player rotation
-        yaw = player.eulerAngles.y;
-        pitch = 10f; // Small tilt down for better view
+        // Initialize yaw and pitch
+        yaw = transform.eulerAngles.y;
+        pitch = 10f; // Slight downward tilt
 
-        // Place camera directly behind the player at start
-        Vector3 initialPosition = player.position + offset;
-        transform.position = initialPosition;
-        transform.LookAt(player);
+        // Position camera behind player
+        Vector3 startPos = player.position + offset;
+        transform.position = startPos;
+        transform.LookAt(player.position + Vector3.up * 1.5f);
 
-        // Load saved invert Y-axis setting
+        // Load inversion preference
         isInverted = PlayerPrefs.GetInt("InvertY", 0) == 1;
+
+        // Lock cursor to center
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     void LateUpdate()
     {
-        if (Time.timeScale == 0f || player == null) return;
+        if (Time.timeScale == 0f || player == null)
+            return;
 
-        // Mouse input
+        // Get mouse input
         float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
         float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed * (isInverted ? -1 : 1);
 
-        // Update yaw and pitch
+        // Update rotation angles
         yaw += mouseX;
         pitch -= mouseY;
-
-        // Clamp vertical rotation
         pitch = Mathf.Clamp(pitch, -10f, 45f);
 
-        // Apply rotation
+        // Camera rotation from mouse only
         Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
 
-        // Smooth follow
-        Vector3 desiredPosition = player.position + rotation * offset;
-        transform.position = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
+        // Follow player smoothly (position only)
+        Vector3 targetPos = player.position + rotation * offset;
+        transform.position = Vector3.Lerp(transform.position, targetPos, smoothSpeed);
 
-        // Always look at the player
-        transform.LookAt(player);
+        // Apply camera rotation
+        transform.rotation = rotation;
+
+        // NOTE: We do NOT modify player's rotation here!
+        // Player rotation is now fully handled by PlayerController (A/D keys).
     }
 
     /// <summary>
-    /// Set Y-axis inversion from OptionsMenu.
+    /// Allows external UI (like Options Menu) to set Y-axis inversion.
     /// </summary>
     public void SetInvertY(bool invert)
     {
