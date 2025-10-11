@@ -3,7 +3,8 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseCanvas; // drag in Inspector
+    [SerializeField] private GameObject pauseCanvas; // Drag in Inspector
+    public static bool isPaused; // Global pause flag
 
     void Start()
     {
@@ -11,8 +12,11 @@ public class PauseMenu : MonoBehaviour
         if (pauseCanvas != null)
             pauseCanvas.SetActive(false);
 
-        // Sync flag with actual canvas state
         isPaused = false;
+
+        // Lock cursor at game start
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     void Update()
@@ -32,6 +36,11 @@ public class PauseMenu : MonoBehaviour
 
         pauseCanvas.SetActive(true);
         Time.timeScale = 0f;
+        isPaused = true;
+
+        //  UNLOCK MOUSE FOR MENU
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
     }
 
     public void Resume()
@@ -40,11 +49,16 @@ public class PauseMenu : MonoBehaviour
 
         pauseCanvas.SetActive(false);
         Time.timeScale = 1f;
+        isPaused = false;
+
+        //  LOCK MOUSE BACK FOR GAMEPLAY
+        Cursor.lockState = CursorLockMode.Locked;
+        Cursor.visible = false;
     }
 
     public void Restart()
     {
-        Resume(); // unpause first
+        Resume(); // Unpause first
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
@@ -60,12 +74,8 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("Options");
     }
 
-    // Helper: check directly if menu is active
     private bool IsPaused()
     {
         return pauseCanvas != null && pauseCanvas.activeSelf;
     }
-
-    // Backwards compatibility if something else checks it
-    public static bool isPaused;
 }

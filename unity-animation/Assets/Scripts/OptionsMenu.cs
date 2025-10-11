@@ -13,6 +13,10 @@ public class OptionsMenu : MonoBehaviour
 
     void Start()
     {
+        //  Unlock cursor in options menu for interaction
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         // Load saved values
         InvertYToggle.isOn = PlayerPrefs.GetInt("InvertY", 0) == 1;
         BGMSlider.value = PlayerPrefs.GetFloat("BGMVolume", 1f);
