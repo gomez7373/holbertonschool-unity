@@ -9,13 +9,13 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     [Header("Movement Settings")]
-    public float moveSpeed = 5f;      // Speed for W/S movement
+    public float moveSpeed = 5f;       // Speed for W/S movement
     public float rotationSpeed = 120f; // Speed for turning (A/D)
-    public float jumpForce = 7f;      // Jump force
+    public float jumpForce = 7f;       // Jump force
 
     private Rigidbody rb;
     private bool isGrounded = true;
-    private Vector3 respawnPosition; // Starting point for respawn
+    private Vector3 respawnPosition;   // Starting point for respawn
 
     void Start()
     {
@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        // --- ROTATION (A/D) ---
+        // --- ROTATION (A/D or arrow keys) ---
         float turn = Input.GetAxis("Horizontal");
         transform.Rotate(Vector3.up * turn * rotationSpeed * Time.deltaTime);
 
@@ -61,5 +61,16 @@ public class PlayerController : MonoBehaviour
                 break;
             }
         }
+    }
+
+    // --- Animation helpers (for PlayerAnimatorController) ---
+    public bool IsGrounded()
+    {
+        return isGrounded;
+    }
+
+    public bool IsJumping()
+    {
+        return !isGrounded;
     }
 }
