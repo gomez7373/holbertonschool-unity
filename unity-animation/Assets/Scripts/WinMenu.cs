@@ -3,26 +3,23 @@ using UnityEngine.SceneManagement;
 
 public class WinMenu : MonoBehaviour
 {
+    int currentSceneIndex;
+    private void Start() {
+        currentSceneIndex = UnityEngine.SceneManagement.SceneManager.GetActiveScene().buildIndex;
+    }
     public void MainMenu()
     {
-        // Load the MainMenu scene
-        SceneManager.LoadScene("MainMenu");
+        UnityEngine.SceneManagement.SceneManager.LoadScene("MainMenu");
     }
-
     public void Next()
     {
-        // Get current scene index
-        int currentIndex = SceneManager.GetActiveScene().buildIndex;
-
-        // If not the last scene, load the next one
-        if (currentIndex + 1 < SceneManager.sceneCountInBuildSettings)
+        if (currentSceneIndex + 1 < SceneManager.sceneCountInBuildSettings)
         {
-            SceneManager.LoadScene(currentIndex + 1);
+            UnityEngine.SceneManagement.SceneManager.LoadScene(currentSceneIndex + 1);
         }
         else
         {
-            // If it is the last scene, return to MainMenu
-            SceneManager.LoadScene("MainMenu");
+            UnityEngine.SceneManagement.SceneManager.LoadScene(2);
         }
     }
 }

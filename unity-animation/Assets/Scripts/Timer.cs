@@ -1,84 +1,44 @@
-﻿using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-/// <summary>
-/// Tracks and displays elapsed time.
-/// </summary>
 public class Timer : MonoBehaviour
 {
-    [Header("UI References")]
-    [SerializeField] private Text timerText;     // In-game timer text (top of screen)
-    [SerializeField] private Text finalTimeText; // WinCanvas "FinalTime" text
+    public Text TimerText;
 
-    private float elapsedTime = 0f;
-    private bool isRunning = false;
+    [SerializeField] private GameObject _timerPanel;
+    [SerializeField] private GameObject _winPanel;
+    [SerializeField] private TMP_Text _winText;
+    private float _time = 0f;
+    private bool _timerIsStopped = false;
 
+    // Update is called once per frame
     void Update()
     {
-        if (!isRunning) return;
-
-        elapsedTime += Time.deltaTime;
-        UpdateTimerUI(timerText, elapsedTime);
+        if (!_timerIsStopped)
+            _time += Time.deltaTime;
     }
-
-    /// <summary>
-    /// Starts the timer.
-    /// </summary>
-    public void StartTimer()
+    private void LateUpdate()
     {
-        isRunning = true;
-        elapsedTime = 0f;
+        if (!_timerIsStopped)
+            UpdateTimerDisplay();
     }
 
-    /// <summary>
-    /// Stops the timer and updates the WinCanvas UI.
-    /// </summary>
+    private void UpdateTimerDisplay()
+    {
+        int minutes = Mathf.FloorToInt(_time / 60f);
+        float seconds = _time % 60f;
+        int milliseconds = Mathf.FloorToInt((_time * 100f) % 100f);
+
+        TimerText.text = string.Format("{0:0}:{1:00}.{2:00}", minutes, seconds, milliseconds);
+    }
+
     public void Win()
     {
-        isRunning = false;
-
-        // Format final time
-        string finalTime = FormatTime(elapsedTime);
-
-        // Change in-game timer to green
-        if (timerText != null)
-        {
-            timerText.color = Color.green;
-        }
-
-        // Update WinCanvas "FinalTime" text
-        if (finalTimeText != null)
-        {
-            finalTimeText.text = finalTime;
-            finalTimeText.color = Color.white;
-            finalTimeText.fontSize = 100;
-        }
+        _timerIsStopped = true;
+        _winPanel.SetActive(true);
+        _timerPanel.SetActive(false);
+        _winText.text = TimerText.text;
     }
 
-    /// <summary>
-    /// Returns elapsed time in seconds.
-    /// </summary>
-    public float GetElapsedTime()
-    {
-        return elapsedTime;
-    }
-
-    /// <summary>
-    /// Helper: update a Text component with formatted time.
-    /// </summary>
-    private void UpdateTimerUI(Text textComponent, float time)
-    {
-        if (textComponent == null) return;
-        textComponent.text = FormatTime(time);
-    }
-
-    /// <summary>
-    /// Helper: format time into mm:ss.ff
-    /// </summary>
-    private string FormatTime(float time)
-    {
-        int minutes = Mathf.FloorToInt(time / 60f);
-        float seconds = time % 60f;
-        return string.Format("{0:0}:{1:00.00}", minutes, seconds);
-    }
 }

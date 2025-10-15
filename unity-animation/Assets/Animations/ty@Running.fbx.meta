@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 51c44f834b87cea4e94326f75e6ffa7c
+guid: e65a43df2bc2dbb40830ac27aeb08b0b
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -16,8 +16,6 @@ ModelImporter:
     optimizeGameObjects: 0
     removeConstantScaleCurves: 0
     motionNodeName: 
-    rigImportErrors: 
-    rigImportWarnings: 
     animationImportErrors: 
     animationImportWarnings: 
     animationRetargetingWarnings: 
@@ -49,7 +47,7 @@ ModelImporter:
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
-      keepOriginalOrientation: 0
+      keepOriginalOrientation: 1
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
       heightFromFeet: 0
@@ -528,13 +526,13 @@ ModelImporter:
         length: 0
         modified: 0
     skeleton:
-    - name: ty@Running (1)(Clone)
+    - name: ty@Running(Clone)
       parentName: 
       position: {x: 0, y: 0, z: 0}
       rotation: {x: 0, y: 0, z: 0, w: 1}
       scale: {x: 1, y: 1, z: 1}
     - name: Boy:Hips
-      parentName: ty@Running (1)(Clone)
+      parentName: ty@Running(Clone)
       position: {x: -0.0011926742, y: 0.83594996, z: 0.0125400275}
       rotation: {x: 0.04667092, y: -0.027636353, z: 0.031041203, w: 0.9980454}
       scale: {x: 1, y: 1, z: 1}

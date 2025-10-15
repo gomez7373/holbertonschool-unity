@@ -1,33 +1,28 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
-
 public class MainMenu : MonoBehaviour
 {
-    void Start()
-    {
-        //  Make cursor visible in the main menu
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
-    }
 
-    // Load level scenes
     public void LevelSelect(int level)
     {
-        string sceneName = $"Level0{level}";
-        SceneManager.LoadScene(sceneName);
+        SharedInfo.Instance.SetPreviousScene(SceneManager.GetActiveScene().name);
+        SceneManager.LoadScene(level);
     }
 
-    // Load Options scene and save current scene as "PreviousScene"
     public void Options()
     {
-        PlayerPrefs.SetString("PreviousScene", SceneManager.GetActiveScene().name);
+        SharedInfo.Instance.SetPreviousScene(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("Options");
     }
 
-    // Exit game
-    public void Exit()
+    public void Quit()
     {
+#if UNITY_EDITOR
         Debug.Log("Exited");
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
         Application.Quit();
+#endif
     }
+
 }

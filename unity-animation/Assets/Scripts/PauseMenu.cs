@@ -3,79 +3,53 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    [SerializeField] private GameObject pauseCanvas; // Drag in Inspector
-    public static bool isPaused; // Global pause flag
-
-    void Start()
-    {
-        // Ensure canvas starts hidden
-        if (pauseCanvas != null)
-            pauseCanvas.SetActive(false);
-
-        isPaused = false;
-
-        // Lock cursor at game start
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
-    }
+    [SerializeField] private GameObject pauseScreen;
+    [SerializeField] private Canvas pauseCanvas;
 
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Escape))
         {
-            Debug.Log("ESC pressed | isPaused = " + isPaused);
-
-            if (IsPaused()) Resume();
-            else Pause();
+            if (Time.timeScale == 0)
+            {
+                Pause(false);
+            }
+            else
+            {
+                Pause(true);
+            }
         }
     }
 
-    public void Pause()
+    private void Pause(bool pause)
     {
-        if (pauseCanvas == null) return;
-
-        pauseCanvas.SetActive(true);
-        Time.timeScale = 0f;
-        isPaused = true;
-
-        //  UNLOCK MOUSE FOR MENU
-        Cursor.lockState = CursorLockMode.None;
-        Cursor.visible = true;
+        Time.timeScale = pause ? 0 : 1;
+        //instruction unclear, hide canvas instead of gameobject
+        //pauseScreen.SetActive(pause);
+        pauseCanvas.enabled = pause;
     }
 
     public void Resume()
     {
-        if (pauseCanvas == null) return;
-
-        pauseCanvas.SetActive(false);
-        Time.timeScale = 1f;
-        isPaused = false;
-
-        //  LOCK MOUSE BACK FOR GAMEPLAY
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        Pause(false);
     }
 
     public void Restart()
     {
-        Resume(); // Unpause first
+        Pause(false);
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
     public void MainMenu()
     {
-        Resume();
+        Pause(false);
         SceneManager.LoadScene("MainMenu");
     }
 
     public void Options()
     {
-        Resume();
+        Pause(false);
+        SharedInfo.Instance.SetPreviousScene(SceneManager.GetActiveScene().name);
         SceneManager.LoadScene("Options");
-    }
-
-    private bool IsPaused()
-    {
-        return pauseCanvas != null && pauseCanvas.activeSelf;
     }
 }

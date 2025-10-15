@@ -1,76 +1,120 @@
-﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-/// <summary>
-/// Controls player movement and jumping (Rigidbody-based).
-/// Updated for Task 4: Player turns with A/D instead of strafing.
-/// </summary>
 public class PlayerController : MonoBehaviour
 {
-    [Header("Movement Settings")]
-    public float moveSpeed = 5f;       // Speed for W/S movement
-    public float rotationSpeed = 120f; // Speed for turning (A/D)
-    public float jumpForce = 7f;       // Jump force
+    public float MoveSpeed = 10f;
+    public float JumpForce = 5f;
+    public float RotationSpeed = 10f;
 
-    private Rigidbody rb;
-    private bool isGrounded = true;
-    private Vector3 respawnPosition;   // Starting point for respawn
+    [SerializeField] private Rigidbody _rb;
+    [SerializeField] private Transform _groundCheck;
+    [SerializeField] private Transform _respawnPoint;
+    [SerializeField] private float _groundCheckRadius = 0.3f;
+    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private TrailRenderer _trailRenderer;
+    [SerializeField] private Animator _animator;
 
-    void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        respawnPosition = transform.position;
-    }
+    private float _moveX;
+    private float _moveZ;
+    private bool _isGrounded;
+    private bool _jumpPressed;
+    private bool _isFalling = false;
+    private bool _isStanding = true;
 
     void Update()
     {
-        // --- ROTATION (A/D or arrow keys) ---
-        float turn = Input.GetAxis("Horizontal");
-        transform.Rotate(Vector3.up * turn * rotationSpeed * Time.deltaTime);
-
-        // --- MOVEMENT (W/S) ---
-        float moveZ = Input.GetAxis("Vertical");
-        Vector3 moveDir = transform.forward * moveZ * moveSpeed;
-        Vector3 newPos = rb.position + moveDir * Time.deltaTime;
-        rb.MovePosition(newPos);
-
-        // --- JUMP ---
-        if (Input.GetKeyDown(KeyCode.Space) && isGrounded)
-        {
-            rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
-            isGrounded = false;
-        }
-
-        // --- FALL & RESPAWN ---
-        if (transform.position.y < -10f)
-        {
-            transform.position = respawnPosition;
-            rb.velocity = Vector3.zero;
-        }
+        GetInputs();
+        RespawnIfFallen();
     }
 
-    void OnCollisionEnter(Collision other)
+    private void FixedUpdate()
     {
-        // Detect landing (only if touching from above)
-        foreach (ContactPoint contact in other.contacts)
+        _isGrounded = Physics.CheckSphere(_groundCheck.position, _groundCheckRadius, _groundLayer);
+        if (_isGrounded && _isFalling == true)
         {
-            if (contact.normal.y > 0.5f)
-            {
-                isGrounded = true;
-                break;
-            }
+            _animator.SetBool("isFalling", false);
+            _isStanding = false;
+        }
+        if (_isGrounded && _trailRenderer.emitting == true)
+        {
+            _trailRenderer.emitting = false;
+            _animator.SetBool("isJumping", false);
+        }
+        if (!_isFalling && _isStanding)
+        {
+            HandleMovement();
+            HandleJump();
         }
     }
 
-    // --- Animation helpers (for PlayerAnimatorController) ---
-    public bool IsGrounded()
+    private void GetInputs()
     {
-        return isGrounded;
+        _moveX = Input.GetAxis("Horizontal");
+        _moveZ = Input.GetAxis("Vertical");
+
+        if (Input.GetKeyDown(KeyCode.Space) && _isGrounded)
+        {
+            _jumpPressed = true;
+        }
     }
 
-    public bool IsJumping()
+    private void HandleMovement()
     {
-        return !isGrounded;
+
+        Vector3 camForward = Camera.main.transform.forward;
+        Vector3 camRight = Camera.main.transform.right;
+        camForward.y = 0;
+        camRight.y = 0;
+        camForward.Normalize();
+        camRight.Normalize();
+
+        Vector3 moveDirection = camForward * _moveZ + camRight * _moveX;;
+        if (moveDirection.magnitude >= 0.1f)
+        {
+            _animator.SetBool("isRunning", true);
+            Quaternion targetRotation = Quaternion.LookRotation(moveDirection);
+            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, RotationSpeed * Time.fixedDeltaTime);
+
+            Vector3 newPosition = transform.forward * MoveSpeed * Time.fixedDeltaTime;
+            _rb.MovePosition(_rb.position + newPosition);
+        }
+        else
+        {
+            _animator.SetBool("isRunning", false);
+        }
+    }
+
+    private void HandleJump()
+    {
+        if (_jumpPressed)
+        {
+            _trailRenderer.emitting = true;
+            _rb.AddForce(Vector3.up * JumpForce, ForceMode.Impulse);
+            _jumpPressed = false;
+            _animator.SetBool("isJumping", true);
+        }
+    }
+    private void OnDrawGizmos()
+    {
+        if (_groundCheck != null)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawWireSphere(_groundCheck.position, _groundCheckRadius);
+        }
+    }
+
+    private void RespawnIfFallen()
+    {
+        if (transform.position.y < -15)
+        {
+            _isFalling = true;
+            _animator.SetBool("isFalling", true);
+            transform.position = _respawnPoint.position;
+        }
+    }
+    public void StandBackUp()
+    {
+        _isFalling = false;
+        _isStanding = true;
     }
 }

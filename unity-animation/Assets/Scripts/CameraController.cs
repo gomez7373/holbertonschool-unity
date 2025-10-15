@@ -1,83 +1,58 @@
 using UnityEngine;
 
-/// <summary>
-/// Handles third-person camera movement and Y-axis inversion.
-/// Follows player position, but does NOT rotate with player rotation.
-/// Camera rotates only with mouse movement.
-/// </summary>
 public class CameraController : MonoBehaviour
 {
-    [Header("Target")]
-    public Transform player; // Reference to the player
+    public GameObject Player;
+    public bool isInverted = false;
 
-    [Header("Camera Settings")]
-    public Vector3 offset = new Vector3(0, 3, -6); // Default offset (behind player)
-    public float rotationSpeed = 5f;               // Mouse sensitivity
-    public float smoothSpeed = 0.125f;             // Follow smoothness
-    public bool isInverted = false;                // Invert Y-axis toggle
+    [SerializeField] private float _rotationSpeed = 3f;
+    private Vector3 _offset;
+    private float _yaw;
+    private float _pitch;
+    
 
-    private float yaw;   // Horizontal rotation
-    private float pitch; // Vertical rotation
-
-    void Start()
+    private void Start()
     {
-        if (player == null)
+        _offset = Player.transform.position - this.transform.position;
+        _yaw = transform.eulerAngles.y;
+        float rawPitch = transform.eulerAngles.x;
+        _pitch = (rawPitch > 180) ? rawPitch - 360 : rawPitch;
+        if (SharedInfo.Instance.InvertY)
         {
-            Debug.LogError("CameraController: No player assigned!");
-            return;
+            isInverted = true;
         }
-
-        // Initialize yaw and pitch
-        yaw = transform.eulerAngles.y;
-        pitch = 10f; // Slight downward tilt
-
-        // Position camera behind player
-        Vector3 startPos = player.position + offset;
-        transform.position = startPos;
-        transform.LookAt(player.position + Vector3.up * 1.5f);
-
-        // Load inversion preference
-        isInverted = PlayerPrefs.GetInt("InvertY", 0) == 1;
-
-        // Lock cursor to center
-        Cursor.lockState = CursorLockMode.Locked;
     }
 
-    void LateUpdate()
+    // Update is called once per frame
+    private void LateUpdate()
     {
-        if (Time.timeScale == 0f || player == null)
-            return;
-
-        // Get mouse input
-        float mouseX = Input.GetAxis("Mouse X") * rotationSpeed;
-        float mouseY = Input.GetAxis("Mouse Y") * rotationSpeed * (isInverted ? -1 : 1);
-
-        // Update rotation angles
-        yaw += mouseX;
-        pitch -= mouseY;
-        pitch = Mathf.Clamp(pitch, -10f, 45f);
-
-        // Camera rotation from mouse only
-        Quaternion rotation = Quaternion.Euler(pitch, yaw, 0);
-
-        // Follow player smoothly (position only)
-        Vector3 targetPos = player.position + rotation * offset;
-        transform.position = Vector3.Lerp(transform.position, targetPos, smoothSpeed);
-
-        // Apply camera rotation
-        transform.rotation = rotation;
-
-        // NOTE: We do NOT modify player's rotation here!
-        // Player rotation is now fully handled by PlayerController (A/D keys).
+        HandleCameraRotation();
+        FollowPlayer();
     }
 
-    /// <summary>
-    /// Allows external UI (like Options Menu) to set Y-axis inversion.
-    /// </summary>
-    public void SetInvertY(bool invert)
+    private void HandleCameraRotation()
     {
-        isInverted = invert;
-        PlayerPrefs.SetInt("InvertY", invert ? 1 : 0);
-        PlayerPrefs.Save();
+        if (Input.GetMouseButton(1))
+        {
+            float mouseX = Input.GetAxis("Mouse X") * _rotationSpeed;
+            float mouseY = Input.GetAxis("Mouse Y") * _rotationSpeed;
+            _yaw += mouseX;
+            _pitch += isInverted? mouseY : -mouseY;
+            _pitch = Mathf.Clamp(_pitch, -15f, 60f);
+
+            Quaternion cameraRotation = Quaternion.Euler(_pitch, _yaw, 0f);
+            Vector3 rotatedOffset = cameraRotation * _offset;
+
+            transform.position = Player.transform.position - rotatedOffset;
+            transform.LookAt(Player.transform.position);
+        }
+    }
+    private void FollowPlayer()
+    {
+        if (!Input.GetMouseButton(1))
+        {
+            transform.position = Player.transform.position - Quaternion.Euler(_pitch, _yaw, 0f) * _offset;
+            transform.LookAt(Player.transform.position);
+        }
     }
 }
