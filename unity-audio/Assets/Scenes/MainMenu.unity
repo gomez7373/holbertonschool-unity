@@ -1430,18 +1430,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AudioManager
       objectReference: {fileID: 0}
-    - target: {fileID: 7815629979606735375, guid: 99080496c57314a468bca5bc5fcd7fa1, type: 3}
-      propertyPath: m_Volume
-      value: 0.11
-      objectReference: {fileID: 0}
-    - target: {fileID: 7815629979606735375, guid: 99080496c57314a468bca5bc5fcd7fa1, type: 3}
-      propertyPath: m_Resource
-      value: 
-      objectReference: {fileID: 8300000, guid: 41301425696389f429a7b242e0ea4d94, type: 3}
-    - target: {fileID: 7815629979606735375, guid: 99080496c57314a468bca5bc5fcd7fa1, type: 3}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
