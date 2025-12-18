@@ -1,146 +1,89 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
-/// <summary>
-/// Controlador principal del jugador. Maneja movimiento, puntuación, salud,
-/// interacciones con objetos (trampas, pickups, teleporters y meta),
-/// y actualización de la interfaz de usuario.
-/// </summary>
 public class PlayerController : MonoBehaviour
 {
-    /// <summary>
-    /// Velocidad del jugador.
-    /// </summary>
-    public float speed = 5f;
-
-    /// <summary>
-    /// Vida del jugador.
-    /// </summary>
-    public int health = 5;
-
-    /// <summary>
-    /// Texto en la UI que muestra el puntaje.
-    /// </summary>
-    public Text scoreText;
-
-    /// <summary>
-    /// Texto en la UI que muestra la salud.
-    /// </summary>
-    public Text healthText;
-
-    /// <summary>
-    /// Texto que muestra mensaje de victoria o derrota.
-    /// </summary>
-    public Text winLoseText;
-
-    /// <summary>
-    /// Fondo del mensaje de victoria o derrota.
-    /// </summary>
-    public Image winLoseBG;
-
     private int score = 0;
-    private Rigidbody rb;
-    private float teleportCooldown = 0f;
+    public int health = 5;
+    public Rigidbody m_Rigidbody;
+    public float speed = 700;
+    public Text scoreText;
+    public Text healthText;
+    public Image WinLoseImage;
+    public Text WinLoseText;
 
-    /// <summary>
-    /// Inicializa componentes y muestra los valores iniciales en pantalla.
-    /// </summary>
+    // Start is called before the first frame update
     void Start()
-    {
-        rb = GetComponent<Rigidbody>();
-        SetScoreText();
-        SetHealthText();
-    }
+    {}
 
-    /// <summary>
-    /// Verifica si la salud del jugador llega a cero y muestra mensaje de Game Over.
-    /// </summary>
+    // Update is called once per frame
     void Update()
     {
-        if (health <= 0)
+        if (health == 0)
         {
-            winLoseText.text = "Game Over!";
-            winLoseText.color = Color.white;
-            winLoseBG.color = Color.red;
-            winLoseBG.gameObject.SetActive(true);
-            StartCoroutine(LoadScene(3)); // Espera 3 segundos antes de reiniciar
+            WinLoseText.text = "Game Over!";
+            WinLoseText.color = Color.white; 
+            WinLoseImage.color = Color.red;
+            WinLoseImage.gameObject.SetActive(true);
+            StartCoroutine(LoadScene(3));
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            SceneManager.LoadScene("menu");
         }
     }
+    void FixedUpdate()
+    {
+        if (Input.GetKey("d"))
+            m_Rigidbody.AddForce(speed * Time.deltaTime, 0, 0);
+        if (Input.GetKey("a"))
+            m_Rigidbody.AddForce(-speed * Time.deltaTime, 0, 0);
+        if (Input.GetKey("w"))
+            m_Rigidbody.AddForce(0, 0, speed * Time.deltaTime);
+        if (Input.GetKey("s"))
+            m_Rigidbody.AddForce(0, 0, -speed * Time.deltaTime);
+    }
 
-    /// <summary>
-    /// Gestiona colisiones con pickups, trampas, teleporters y meta.
-    /// </summary>
-    /// <param name="other">El collider con el que el jugador entra en contacto.</param>
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Pickup"))
+        if (other.gameObject.tag == "Trap")
         {
-            score++;
-            SetScoreText();
-            other.gameObject.SetActive(false);
-        }
-
-        if (other.CompareTag("Trap"))
-        {
-            health--;
+            health -= 1;
             SetHealthText();
         }
-
-        if (other.CompareTag("Goal"))
+        if (other.gameObject.tag == "Pickup")
         {
-            winLoseText.text = "You Win!";
-            winLoseText.color = Color.black;
-            winLoseBG.color = Color.green;
-            winLoseBG.gameObject.SetActive(true);
-            StartCoroutine(LoadScene(3)); // Espera 3 segundos antes de reiniciar
+            score += 1;
+            SetScoreText();
+            Destroy(other.gameObject);
         }
-
-        if (other.CompareTag("Teleporter"))
+        if (other.gameObject.tag == "Goal")
         {
-            if (Time.time < teleportCooldown)
-                return;
-
-            GameObject[] teleporters = GameObject.FindGameObjectsWithTag("Teleporter");
-
-            foreach (GameObject tp in teleporters)
-            {
-                if (tp.transform != other.transform)
-                {
-                    transform.position = tp.transform.position + new Vector3(0, 1, 0);
-                    Debug.Log("Teleported!");
-                    teleportCooldown = Time.time + 1f;
-                    break;
-                }
-            }
+            WinLoseText.text = "You Win!";
+            WinLoseText.color = Color.black; 
+            WinLoseImage.color = Color.green;
+            WinLoseImage.gameObject.SetActive(true);
+            StartCoroutine(LoadScene(3));
         }
     }
 
-    /// <summary>
-    /// Recarga la escena después de esperar X segundos.
-    /// </summary>
-    /// <param name="seconds">Tiempo a esperar antes de reiniciar.</param>
-    IEnumerator LoadScene(float seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-
-    /// <summary>
-    /// Actualiza el texto de puntaje en la UI.
-    /// </summary>
     void SetScoreText()
     {
         scoreText.text = "Score: " + score;
     }
 
-    /// <summary>
-    /// Actualiza el texto de salud en la UI.
-    /// </summary>
     void SetHealthText()
     {
         healthText.text = "Health: " + health;
+    }
+
+    IEnumerator LoadScene(float seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }

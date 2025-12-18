@@ -1,10 +1,15 @@
-﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
 
 public class Rotator : MonoBehaviour
 {
+    public GameObject coin;
+
+    // Update is called once per frame
     void Update()
     {
-        // Rotate the coin 45 degrees per second around the x-axis
-        transform.Rotate(45 * Time.deltaTime, 0, 0);
+        transform.Rotate(0, 45 * Time.deltaTime, 0, Space.World);
     }
+
 }
