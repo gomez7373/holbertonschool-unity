@@ -11,6 +11,7 @@ public static class CliAndroidBuild
 {
     public static void Build()
     {
+        // Android SDK path (copied out of Program Files to avoid read-only issues)
         string sdk = @"C:\Android\SDK";
 
 #if UNITY_ANDROID
@@ -26,16 +27,29 @@ public static class CliAndroidBuild
         EditorPrefs.SetString("AndroidSdkRoot", sdk);
 #endif
 
-        string outDir = "Builds/Android";
-        if (!Directory.Exists(outDir)) Directory.CreateDirectory(outDir);
+        // ------------------------------------------------------------
+        // ORIGINAL output directory (kept for reference)
+        // string outDir = "Builds/Android";
+        //
+        // NEW output directory:
+        // We store Android builds in Builds/movil
+        // to avoid overwriting previous Android builds.
+        // ------------------------------------------------------------
+        string outDir = "Builds/movil";
 
+        if (!Directory.Exists(outDir))
+            Directory.CreateDirectory(outDir);
+
+        // Ensure Android is the active build target
         EditorUserBuildSettings.SwitchActiveBuildTarget(
             BuildTargetGroup.Android,
             BuildTarget.Android
         );
 
+        // Build APK (not App Bundle)
         EditorUserBuildSettings.buildAppBundle = false;
 
+        // Collect all .unity scenes under Assets
         var scenes = Directory.GetFiles("Assets", "*.unity", SearchOption.AllDirectories)
             .OrderBy(p => p)
             .ToArray();
@@ -47,10 +61,17 @@ public static class CliAndroidBuild
             return;
         }
 
+        // Register scenes for the build
         EditorBuildSettings.scenes = scenes
             .Select(p => new EditorBuildSettingsScene(p.Replace("\\", "/"), true))
             .ToArray();
 
+        // ------------------------------------------------------------
+        // ORIGINAL APK path (kept commented for memory)
+        // string apkPath = Path.Combine("Builds/Android", "unity_publishing.apk");
+        //
+        // ACTIVE APK path (Builds/movil)
+        // ------------------------------------------------------------
         string apkPath = Path.Combine(outDir, "unity_publishing.apk");
 
         var opts = new BuildPlayerOptions
